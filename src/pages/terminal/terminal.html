@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>GATT Console</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left (click)="startScanning()" *ngIf="!isScanning&&!isConnected">
+        <ion-icon name="bluetooth"></ion-icon>
+        Scan
+      </button>
+      <button ion-button icon-left (click)="disconnect()" *ngIf="isConnected">
+        <ion-icon name="bluetooth"></ion-icon>
+        Disconnect
+      </button>
+      <button ion-button icon-left (click)="stopScanning()" *ngIf="isScanning">
+        <ion-spinner></ion-spinner>
+        Stop
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <ion-label>ECHO</ion-label>
+        <ion-checkbox checked="linechars.echo" [(ngModel)]="linechars.echo"></ion-checkbox>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label>CR</ion-label>
+        <ion-checkbox checked="linechars.cf" [(ngModel)]="linechars.cr"></ion-checkbox>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label>CF</ion-label>
+        <ion-checkbox checked="linechars.lf" [(ngModel)]="linechars.lf"></ion-checkbox>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-input style="background-color: #E0E0E0" type="text" autocapitalize="none" autocorrect="off" placeholder="command line" [(ngModel)]="transmit">
+      </ion-input>
+
+      <button ion-button small item-end outline (click)="sendText()" [disabled]="!isConnected">Send</button>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-textbox #terminal></ion-textbox>
+</ion-content>
+

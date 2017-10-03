@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Devices</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left (click)="startScanning()" *ngIf="!isScanning">
+        <ion-icon name="bluetooth"></ion-icon>
+        Scan
+      </button>
+      <button ion-button icon-left (click)="stopScanning()" *ngIf="isScanning">
+        <ion-spinner></ion-spinner>
+        Stop
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-list-header>BLE Peripherals</ion-list-header>
+    <ion-item-sliding *ngFor="let device of devices" #slidingItem>
+
+      <button ion-item button-left (click)="redirectToTerminalPage( device )">
+        <ion-icon name="appname-db9"></ion-icon>
+        {{device.name || device.id}} ({{device.rssi}}) dBm
+      </button>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <p>{{ statusMessage }}</p>
+  </ion-toolbar>
+</ion-footer>

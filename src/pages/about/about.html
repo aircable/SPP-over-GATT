@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      About
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="about cards-bg social-cards">
+
+  <h3>Serial GATT Terminal</h3>
+  <p *ngIf="!IsIos">Hybrid software for Chrome browser, Android and iOS, that allows you to connect to and communicate with the
+    <a href="https://goo.gl/RAjU5X" target="_blank">AIRcable MiniMesh</a>.
+  </p>
+
+  <p *ngIf="IsIos">Utility that connects via BLE and communicates serial data with the
+    <a href="https://goo.gl/RAjU5X" target="_blank">AIRcable MiniMesh</a>.
+  </p>
+
+  <ion-list-header>Built by Wireless Cables Inc.</ion-list-header>
+
+
+  <ion-card>
+
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/JuergenPortrait2014.png">
+      </ion-avatar>
+      <h2>AIRcable MiniMesh</h2>
+    </ion-item>
+
+    <img src="assets/mini_420.png">
+
+    <ion-card-content>
+
+      Serial-port to Bluetooth BLE:
+      <ul>
+        <li>
+          SPP-over-GATT: serial port profile over GATT, secured with strong encryption and password.
+        </li>
+        <li>
+          Bluetooth Mesh, when not connected. Transmits RS232 data with encrypted mesh packets.
+        </li>
+        <li>
+          No more range problems, mesh packets are relayed via other nodes.
+        </li>
+      </ul>
+
+
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button color="primary" clear small icon-start>
+          <ion-icon name='appname-wave'></ion-icon>
+          More Information
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="primary" clear small icon-start>
+          <ion-icon name='logo-github'></ion-icon>
+          Source Code
+        </button>
+      </ion-col>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          September 2017
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+
+</ion-content>

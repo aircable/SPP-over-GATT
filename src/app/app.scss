@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +13,38 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+ion-icon {
+  &[class*="app-"] {
+    // Instead of using the font-based icons
+    // We're applying SVG masks
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+  // custom icons
+  &[class*="app-bluetooth"] {
+    mask-image: url(../assets/icon/bluetooth.svg);
+  }
+  &[class*="app-antenna"] {
+    mask-image: url(../assets/icon/antenna.svg);
+  }
+  &[class*="app-logo"] {
+    mask-image: url(../assets/icon/logo.svg);
+  }
+  &[class*="app-wave"] {
+    mask-image: url(../assets/icon/wave-logo.svg);
+  }
+  &[class*="app-serial"] {
+    mask-image: url(../assets/icon/serial.svg);
+  }
+  &[class*="app-db9"] {
+    mask-image: url(../assets/icon/db9.svg);
+  }
+  &[class*="app-group"] {
+    mask-image: url(../assets/icon/group.svg);
+  }
+}

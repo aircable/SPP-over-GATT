@@ -1,26 +1,39 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+Ionic 3 Serial Port Profile over GATT Application
 
-## How to use this template
+# SPP-over-GATT
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+This is a hybrid Bluetooth application, written to run on Chrome, iOS and Android as either a progressive web app or natively.
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+It uses Bluetooth GATT to connect to the AIRcable MiniMesh which implements a serial port profile.
+
+A terminal screen lets the user type commands (just characters), send data and see data from the serial port.
+
+## Connect to AIRcable's Serial MiniMesh
+
+The AIRcable MiniMesh is a Bluetooth BLE to Serial DB9 adapter. 
+
+*You are welcome to contribute to the project.* No everything is perfect yet.
+For example please help to get the [xterm.js](https://github.com/sourcelair/xterm.js) better integrated. 
+Some style things are a bit weird, e.g. the use of <ion-textbox> which makes it look good, but does not exist.
+Also additional features contributions are welcome.
+
 
 ### With the Ionic CLI:
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
+Make sure you have [Node.js](https://nodejs.org) and Ionic installed:
 ```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
+$ sudo npm install -g cordova ionic
 ```
 
-Then, to run it, cd into `myBlank` and run:
-
+Then just cd into the `SPP-over-GATT` directory and run:
 ```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
+$ ionic serve -lc
 ```
 
-Substitute ios for android if not on a Mac.
+Testing on iOS:
 
+```bash
+$ ionic cordova build ios
+```
+
+Then use Xcode to compile app and run on device.
