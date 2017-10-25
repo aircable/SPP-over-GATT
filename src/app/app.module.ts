@@ -43,8 +43,6 @@ export function defaultSettings( storage: Storage ) {
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        TerminalPage,
-        DevicePage,
     ],
     providers: [
         BLE,
@@ -54,7 +52,7 @@ export function defaultSettings( storage: Storage ) {
         // Keep this to enable Ionic's runtime error handling during development
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         Ble
-    ]
+    ],
 })
 export class AppModule {
 }

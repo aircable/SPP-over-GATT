@@ -133,7 +133,7 @@ export class DevicePage {
     public deviceDetected( device ) {
 
         if (device.name !== undefined) {
-            console.log( "detected "+device.name )
+            console.log( "detected "+device.name );
 
             if( this.deviceAlreadySeen( device )) {
                 // add te.deviceAlreadySeen( device )) {
@@ -239,7 +239,7 @@ export class DevicePage {
 
         console.log( "goto TermPage "+ peripheral.name );
         // move to the terminal page, if all is authorized
-        this.navCtrl.push( TerminalPage, {
+        this.navCtrl.push( 'TerminalPage', {
             peripheral: this.peripheral
         })
     }
@@ -300,7 +300,7 @@ export class DevicePage {
             buttons: ["OK"]
         });
         alert.present();
-        this.navCtrl.push( DevicePage );
+        this.navCtrl.push( 'DevicePage' );
     }
 
 

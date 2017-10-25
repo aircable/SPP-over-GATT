@@ -327,7 +327,7 @@ export class Ble {
 
     public sendTextNative( text: string, peripheral: any ) {
 
-        console.log("native send " + text + "to " + JSON.stringify( peripheral ));
+        //console.log("native send " + text + "to " + JSON.stringify( peripheral ));
         this.writableSubject.next(true);
 
         const bytes = text.split('').map(c => c.charCodeAt(0));

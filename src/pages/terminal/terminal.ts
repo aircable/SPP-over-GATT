@@ -73,7 +73,7 @@ export class TerminalPage {
 
             // subscribe to the observable to get data from the device
             this.peripheral.data.subscribe((data) => {
-                console.log('got ' + data);  //JSON.stringify( data ));
+                //console.log('got ' + data);  //JSON.stringify( data ));
                 this.zone.run(() => {
                     // data to terminal
                     this.term.write(data);
@@ -301,7 +301,7 @@ export class TerminalPage {
             // native
             this.ble.disconnectNative( this.peripheral.id );
             // back to the device page for peripheral select
-            this.navCtrl.push( DevicePage );
+            this.navCtrl.push( 'DevicePage' );
 
         } else {
             // web bluetooth
