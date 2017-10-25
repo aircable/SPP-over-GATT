@@ -7,10 +7,12 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 
 import { BLE } from "@ionic-native/ble";
 
-//import { HomePage } from '../pages/home/home';
 import { Ble } from '../providers/providers';
 import { Settings } from '../providers/providers';
 import { MyApp } from './app.component';
+
+import { TerminalPage } from '../pages/terminal/terminal';
+import { DevicePage } from '../pages/device/device';
 
 
 export function defaultSettings( storage: Storage ) {
@@ -41,6 +43,8 @@ export function defaultSettings( storage: Storage ) {
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
+        TerminalPage,
+        DevicePage,
     ],
     providers: [
         BLE,

@@ -1,5 +1,8 @@
 {
   "name": "AIRcable_SPPoverGATT",
-  "app_id": "",
-  "type": "ionic-angular"
+  "app_id": "496531ad",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

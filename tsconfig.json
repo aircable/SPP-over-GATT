@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    // necessary because Observable<T> failed
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "declaration": false,
     "emitDecoratorMetadata": true,

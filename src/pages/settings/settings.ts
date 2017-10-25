@@ -20,13 +20,23 @@ export class SettingsPage {
     @ViewChild('myTabs') tabRef:Tabs;
 
     showPasswordText = false;
+    connected = false;
 
     settingsForm: FormGroup;
 
     private baudid;
-    private baudlist = [];
+    // map ID to actual bps
+    private baudlist = [
+        { id: 1, speed: '2400' },
+        { id: 3, speed: '9600' },
+        { id: 4, speed: '19200' },
+        { id: 5, speed: '38400' },
+        { id: 6, speed: '57600' },
+        { id: 8, speed: '115200' }
+    ];
+
     // Our local settings object
-    uartsettings: any; // = { baudid: 3, password: "1234" };
+    private uartsettings: any; // = { baudid: 3, password: "1234" };
 
     settingsReady = false;
 
@@ -41,10 +51,10 @@ export class SettingsPage {
 
     constructor(public navCtrl:NavController,
                 public settings: Settings,
-                public navParams:NavParams,
-                private zone:NgZone,
-                public formBuilder:FormBuilder,
-                public events:Events) {
+                public navp: NavParams,
+                private zone: NgZone,
+                public formBuilder: FormBuilder,
+                public events: Events) {
         console.log("settings page "+JSON.stringify( settings ));
     }
 
@@ -52,30 +62,18 @@ export class SettingsPage {
 
     _buildForm() {
 
-        // map ID to actual bps
-        this.baudlist = [
-            { id: 1, speed: '2400' },
-            { id: 3, speed: '9600' },
-            { id: 4, speed: '19200' },
-            { id: 5, speed: '38400' },
-            { id: 6, speed: '57600' },
-            { id: 8, speed: '115200' }
-        ];
+        console.log("buildForm");
 
         this.settingsForm = this.formBuilder.group({
-            baudid: [""],
-            password: ["", Validators.compose([ Validators.maxLength(20), Validators.required ])],
-            group: [""],
+            baudid: [ this.uartsettings.baudid ],
+            password: [ this.uartsettings.password, Validators.compose([ Validators.maxLength(20), Validators.required ])],
+            group: [ this.uartsettings.group ],
         });
 
         // Watch the form for changes, and save them immediately
         this.settingsForm.valueChanges.subscribe((v) => {
             this.settings.merge( this.settingsForm.value );
         });
-
-        this.settingsForm.controls[ "baudid"].patchValue( this.uartsettings.baudid );
-        this.settingsForm.controls[ "password"].patchValue( this.uartsettings.password );
-        this.settingsForm.controls[ "group"].setValue( 0 );
 
     }
 
@@ -87,11 +85,12 @@ export class SettingsPage {
     }
 
     ionViewWillEnter() {
+        console.log("ionViewWillEnter");
         // Build an empty form for the template to render
         this.settingsForm = this.formBuilder.group({});
 
-        this.page = this.navParams.get('page') || this.page;
-        this.pageTitleKey = this.navParams.get('pageTitleKey') || this.pageTitleKey;
+        //this.page = this.navParams.get('page') || this.page;
+        //this.pageTitleKey = this.navParams.get('pageTitleKey') || this.pageTitleKey;
 
         this.settings.load().then(() => {
             this.settingsReady = true;

@@ -2,11 +2,11 @@
   <ion-navbar>
     <ion-title>Devices</ion-title>
     <ion-buttons end>
-      <button ion-button icon-left (click)="startScanning()" *ngIf="!isScanning">
+      <button ion-button icon-left (click)="nativeScan()" *ngIf="!isScanning">
         <ion-icon name="bluetooth"></ion-icon>
         Scan
       </button>
-      <button ion-button icon-left (click)="stopScanning()" *ngIf="isScanning">
+      <button ion-button icon-left (click)="nativeScan()" *ngIf="isScanning">
         <ion-spinner></ion-spinner>
         Stop
       </button>

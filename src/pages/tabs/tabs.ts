@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, Platform, AlertController } from 'ionic-angular';
 
 import { DevicePage } from "../device/device";
+import { Settings } from '../../providers/providers';
 
 // native Bluetooth
 import { BLE } from "@ionic-native/ble";
@@ -28,8 +29,9 @@ export class TabsPage {
     private isCordova:boolean;
 
     constructor(public navCtrl:NavController,
+                public settings: Settings,
                 private nativeble:BLE,
-                private platform:Platform,
+                private platform: Platform,
                 private alertController:AlertController) {
 
         this.isIos = this.platform.is("ios");
@@ -58,6 +60,11 @@ export class TabsPage {
         } else {
             console.log("Web Bluetooth");
         }
+
+        // make sure the default settings are stored in the database, load does that
+        this.settings.load().then(() => {
+            console.log( "settings stored/loaded");
+        });
 
     }
 

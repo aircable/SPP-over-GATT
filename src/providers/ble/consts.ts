@@ -8,7 +8,9 @@ export const UART_SERVICE_STR = "1815";
 export const UART_TXRX = 0x2a5e;
 export const UART_TXRX_STR = "2A5E";
 export const UART_PASSWORD = 0xffff;
+export const UART_PASSWORD_STR = "ffff";
 export const UART_CONFIG = 0x2a5f;
+export const UART_CONFIG_STR = "2a5f";
 
 
 
@@ -20,11 +22,11 @@ export function setBaudCmd( baud: number ) {
 }
 
 // set password command
-export function setPasswordCmd( pwd: string ) {
+export function setPasswordCmd( pwd: number ) {
     return new Uint8Array([0x56, 0, 0, 0, pwd, 0x0f, 0xaa]);
 }
 
-// set broup command
-export function setPasswordCmd( grp: number ) {
+// set group command
+export function setGroupCmd( grp: number ) {
     return new Uint8Array([0x56, 0, 0, 0, grp, 0x0f, 0xaa]);
 }
