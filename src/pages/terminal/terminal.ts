@@ -29,7 +29,7 @@ export class TerminalPage {
     public linechars_cr: boolean = true;
     public linechars_lf: boolean = false;
 
-    private transmit:string;
+    private transmit: string;
     // the peripheral to connect to
     private peripheral;
 
@@ -100,13 +100,7 @@ export class TerminalPage {
              this.term.write(key);
              */
             // send every single keystroke over Bluetooth
-            if (this.peripheral !== undefined) {
-                // native Bluetooth
-                this.ble.sendTextNative( key, this.peripheral );
-            } else {
-                // Web Bluetooth
-                this.ble.sendText( key );
-            }
+            this.ble.sendText( key, this.peripheral );
         });
 
 
@@ -134,17 +128,17 @@ export class TerminalPage {
 
                                 // if connected write to the config char
                                 this.settings.getValue( 'baudid' ).then(
-                                    baud => this.ble.setBaudConfig( baud )
+                                    baud => this.ble.setBaudConfig( baud, this.peripheral )
                                 );
                                 // then we change the password and group and give it some extra time
                                 setTimeout(() => {
                                     this.settings.getValue( 'password' ).then(
-                                        pwd => this.ble.newPassword( pwd )
+                                        pwd => this.ble.newPassword( pwd, this.peripheral )
                                     );
                                 }, 200 );
                                 setTimeout(() => {
                                     this.settings.getValue( 'group' ).then(
-                                        grp => this.ble.setConfig( grp )
+                                        grp => this.ble.setConfig( grp, this.peripheral )
                                     );
                                 }, 500 );
                             }
@@ -181,7 +175,7 @@ export class TerminalPage {
 
 
     // called from button
-    sendText() {
+    sendCMD() {
         //console.log( this.transmit );
         if (this.linechars_echo) {
             // echo to terminal
@@ -195,15 +189,7 @@ export class TerminalPage {
         if (this.linechars_lf) {
             this.transmit += '\n';
         }
-
-        console.log( 'sending to ' + JSON.stringify( this.peripheral ));
-        if( this.peripheral !== undefined ){
-            // native BLE
-            this.ble.sendTextNative( this.transmit, this.peripheral );
-        } else {
-            // send text over Bluetooth
-            this.ble.sendText( this.transmit );
-        }
+        this.ble.sendText( this.transmit, this.peripheral );
 
         //console.log( this.terminal );
         this.transmit = "";
@@ -251,7 +237,10 @@ export class TerminalPage {
             // use local
             this.uartData
                 .subscribe(
-                    (data) => this.term.write( data ),
+                    (data) => {
+                        console.log( "receive "+data);
+                        this.term.write(data);
+                    },
                     // error
                     (e) => console.log("datastream " + e),
                     // final
@@ -262,7 +251,6 @@ export class TerminalPage {
                         this.isScanning = false;
                         this.isConnected = false;
                     }
-
                 );
 
         } catch (err) {

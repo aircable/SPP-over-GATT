@@ -114,7 +114,7 @@ export class SettingsPage {
 
     save() {
 
-        console.log( "form "+ JSON.stringify( this.settingsForm.value ));
+        //console.log( "form "+ JSON.stringify( this.settingsForm.value ));
         this.uartsettings.baudid = +this.settingsForm.value.baudid;
         // make it into a number with the plus sign
         this.uartsettings.password = this.settingsForm.value.password;

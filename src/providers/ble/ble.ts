@@ -84,7 +84,7 @@ export class Ble {
     private isCordova:boolean;
 
     constructor(
-        private platform:Platform,
+        private platform: Platform,
         private ble: BLE,
     ) {
         this.isCordova = this.platform.is("cordova");
@@ -237,7 +237,7 @@ export class Ble {
 
     /** characteristic write functions **/
 
-
+    // only for Web Bluetooth, see device.ts for native
     public async password( pw: string ){
         console.log( "writing pwd "+ pw );
         await this.passwordChar.writeValue( new TextEncoder('utf-8').encode(`${pw}`));
@@ -245,35 +245,45 @@ export class Ble {
 
 
 
+    private async writeConfigChar( raw: Uint8Array, peripheral: any ){
+        try {
+            if( peripheral !== undefined ) {
+                // Native BLE
+                await this.ble.write( peripheral.id, UART_SERVICE_STR, UART_CONFIG_STR, raw.buffer );
+            } else {
+                // Web Bluetooth
+                await this.configChar.writeValue( raw );
+            }
 
-    public async setBaudConfig( baudid ){
+        } catch( e ) {
+            console.log( "setconfig failed " + e);
+        }
+    }
+
+    public async setBaudConfig( baudid: string, peripheral?: any ){
         let raw = new Uint8Array( 2 );
         raw[0] = 0x01; // baud command
         raw[1] = +baudid; // convert to number
-        try {
-            await this.configChar.writeValue( raw );
-        } catch( e ) {
-            console.log( "setbaud failed " + e);
-        }
+
+        console.log( "peripheral="+JSON.stringify( peripheral ));
+        await this.writeConfigChar( raw, peripheral );
+
     }
 
 
 
-    public async setConfig( group: number ){
+    public async setConfig( group: number, peripheral?: any ){
         let raw = new Uint8Array( 3 );
         raw[0] = 32; // group command
         raw[1] = group & 0xFF; // lower bytes
         raw[2] = ( group >> 8 ); // upper byte
-        try {
-            await this.configChar.writeValue( raw );
-        } catch( e ) {
-            console.log( "setConfig failed " + e);
-        }
+
+        await this.writeConfigChar( raw, peripheral );
     }
 
 
 
-    public async newPassword( pw: string ){
+    public async newPassword( pw: string, peripheral?: any ){
 
         const length = (pw as string).length;
 
@@ -282,21 +292,16 @@ export class Ble {
         for( let i=0; i<length; i++){
             pwdata[i+1] = pw.charCodeAt(i);
         }
-
-        try{
-            await this.configChar.writeValue( pwdata );
-        } catch( e ) {
-            console.log( "pw failed " + e);
-        }
-
+        await this.writeConfigChar( pwdata, peripheral );
     }
 
 
     // write to char in chunks as well as step by step
-
-    public sendText( text: string ){
+    // using native Bluetooth when peripheral as parameter isn't there
+    public sendText( text: string, peripheral?: any ){
 
         //console.log("sending "+text);
+        this.writableSubject.next(true);
 
         const bytes = text.split('').map(c => c.charCodeAt(0));
         const chunks = [];
@@ -312,7 +317,16 @@ export class Ble {
             .mergeMap(([ chunk, writeable ]) => {
                 //console.log("writing: "+ chunk);
                 this.writableSubject.next(false);
-                return Observable.from( this.uartChar.writeValue( chunk ));
+
+                if( peripheral !== undefined ) {
+                    // Native BLE this.ble.writeWithoutResponse is a promise
+                    return Observable.fromPromise(
+                        this.ble.writeWithoutResponse( peripheral.id, UART_SERVICE_STR, UART_TXRX_STR, chunk.buffer )
+                    )
+                } else {
+                    // Web Bluetooth
+                    return Observable.from(this.uartChar.writeValue(chunk));
+                }
             })
 
             // timeout absolutely necessary because otherwise writeValue will fail when called too quickly
@@ -323,41 +337,6 @@ export class Ble {
         // connect to the Observable and get the result
         result.connect();
         return result;
-    }
-
-    public sendTextNative( text: string, peripheral: any ) {
-
-        //console.log("native send " + text + "to " + JSON.stringify( peripheral ));
-        this.writableSubject.next(true);
-
-        const bytes = text.split('').map(c => c.charCodeAt(0));
-        const chunks = [];
-
-        while (bytes.length > 0) {
-            chunks.push(new Uint8Array(bytes.splice(0, 20)));
-        }
-
-        const result = Observable.zip(
-            Observable.from(chunks),
-            this.writableSubject.filter(value => value)
-            )
-            .mergeMap(([ chunk, writeable ]) => {
-                //console.log("writing: " + chunk);
-                this.writableSubject.next(false);
-                // this.ble.writeWithoutResponse is a promise
-                return Observable.fromPromise(
-                    this.ble.writeWithoutResponse( peripheral.id, UART_SERVICE_STR, UART_TXRX_STR, chunk.buffer )
-                )
-            })
-            // timeout absolutely necessary because otherwise writeValue$ will fail when called too quickly
-            .map(() => setTimeout(() => this.writableSubject.next(true), 10))
-            // make this into a connectable Observable
-            .publish();
-
-        // connect to the Observable and get the result
-        result.connect();
-        return result;
-
     }
 
 

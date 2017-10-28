@@ -39,7 +39,7 @@
       <ion-input style="background-color: #E0E0E0" type="text" autocapitalize="none" autocorrect="off" placeholder="command line" [(ngModel)]="transmit">
       </ion-input>
 
-      <button ion-button small item-end outline (click)="sendText()" [disabled]="!isConnected">Send</button>
+      <button ion-button small item-end outline (click)="sendCMD()" [disabled]="!isConnected">Send</button>
     </ion-row>
 
   </ion-grid>
