@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.sppogatt" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="co.aircable.sppogatt" version="0.1.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>SPP over GATT Terminal</name>
     <description>Bluetooth terminal application to connect to AIRcable's MiniMesh through GATT</description>
     <author email="juergen@aircable.net" href="http://aircable.co/">Contact AIRcable</author>
@@ -81,13 +81,19 @@
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
         <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
     </platform>
-    <engine name="browser" spec="5.0.0" />
-    <engine name="ios" spec="^4.4.0" />
+    <engine name="ios" spec="^4.5.1" />
     <plugin name="cordova-plugin-ble-central" spec="^1.1.4">
         <variable name="BLUETOOTH_USAGE_DESCRIPTION" value="GATT connections" />
     </plugin>
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
+    <plugin name="cordova-plugin-ionic" spec="^2.0.2">
+        <variable name="APP_ID" value="496531ad" />
+        <variable name="CHANNEL_NAME" value="Master" />
+        <variable name="UPDATE_METHOD" value="background" />
+        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
+        <variable name="MAX_STORE" value="2" />
+    </plugin>
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />

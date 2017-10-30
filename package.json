@@ -1,6 +1,6 @@
 {
     "name": "AIRcable_SPPoverGATT",
-    "version": "0.1.1",
+    "version": "0.1.4",
     "author": "Wireless Cables Inc. <juergen@aircable.net>",
     "description": "An Ionic project for Bluetooth",
     "private": true,
@@ -18,38 +18,39 @@
         "ionic:serve": "ionic-app-scripts serve"
     },
     "dependencies": {
-        "@angular/common": "^4.4.3",
-        "@angular/compiler": "^4.4.3",
-        "@angular/compiler-cli": "^4.4.3",
-        "@angular/core": "^4.4.3",
-        "@angular/forms": "^4.4.3",
-        "@angular/http": "^4.4.3",
-        "@angular/platform-browser": "^4.4.3",
-        "@angular/platform-browser-dynamic": "^4.4.3",
-        "@ionic-native/ble": "^4.3.0",
-        "@ionic-native/core": "^4.3.0",
-        "@ionic-native/native-storage": "^4.3.0",
-        "@ionic-native/splash-screen": "^4.3.0",
-        "@ionic-native/status-bar": "^4.3.0",
+        "@angular/common": "4.4.4",
+        "@angular/compiler": "4.4.4",
+        "@angular/compiler-cli": "4.4.4",
+        "@angular/core": "4.4.4",
+        "@angular/forms": "4.4.4",
+        "@angular/http": "4.4.4",
+        "@angular/platform-browser": "4.4.4",
+        "@angular/platform-browser-dynamic": "4.4.4",
+        "@ionic-native/ble": "4.3.2",
+        "@ionic-native/core": "4.3.2",
+        "@ionic-native/native-storage": "4.3.2",
+        "@ionic-native/splash-screen": "4.3.2",
+        "@ionic-native/status-bar": "4.3.2",
         "@ionic/storage": "^2.0.1",
         "@types/web-bluetooth": "0.0.3",
         "ajv": "^5.2.2",
-        "cordova-browser": "5.0.0",
-        "cordova-ios": "^4.4.0",
+        "cordova-android": "^6.2.3",
+        "cordova-ios": "^4.5.1",
+        "cordova-plugin-add-swift-support": "^1.7.0",
         "cordova-plugin-ble-central": "^1.1.4",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-console": "^1.1.0",
         "cordova-plugin-device": "^1.1.6",
+        "cordova-plugin-ionic": "^2.0.2",
         "cordova-plugin-ionic-webview": "^1.1.16",
         "cordova-plugin-nativestorage": "^2.2.2",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.3",
         "cordova-plugin-whitelist": "^1.3.2",
-        "ionic-angular": "^3.7.1",
-        "ionic-native": "^2.9.0",
+        "ionic-angular": "^3.8.0",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionicons": "3.0.0",
-        "rxjs": "5.5.0-beta.7",
+        "rxjs": "5.5.1",
         "shelljs": "^0.7.8",
         "sw-toolbox": "3.6.0",
         "text-encoding": "^0.6.4",
@@ -58,7 +59,7 @@
     },
     "devDependencies": {
         "@angular/tsc-wrapped": "^4.4.4",
-        "@ionic/app-scripts": "3.0.1",
+        "@ionic/app-scripts": "^3.0.1",
         "typescript": "2.5.3"
     },
     "cordova": {
@@ -73,10 +74,16 @@
             },
             "cordova-plugin-nativestorage": {},
             "cordova-plugin-console": {},
-            "cordova-plugin-ionic-webview": {}
+            "cordova-plugin-ionic-webview": {},
+            "cordova-plugin-ionic": {
+                "APP_ID": "496531ad",
+                "CHANNEL_NAME": "Master",
+                "UPDATE_METHOD": "background",
+                "UPDATE_API": "https://api.ionicjs.com",
+                "MAX_STORE": "2"
+            }
         },
         "platforms": [
-            "browser",
             "ios"
         ]
     }
